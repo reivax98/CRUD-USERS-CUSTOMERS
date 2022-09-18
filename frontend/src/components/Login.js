@@ -10,7 +10,8 @@ async function loginUser(credentials) {
     },
     body: JSON.stringify(credentials)
   })
-    .then(data => data.json())
+    .then(res => res.json())
+    .catch(err => console.log('Solicitud fallida', err));
 }
 
 export default function Login({ setToken }) {
@@ -23,7 +24,7 @@ export default function Login({ setToken }) {
       users_correo,
       users_contrasena
     });
-    setToken(token.accessToken);
+    setToken(token);
   }
 
   return <div style={{ height: '64vh' }} className="container-fluid">
@@ -39,7 +40,7 @@ export default function Login({ setToken }) {
               </div>
               <div className="mb-3">
                 <input type="password" name="us_clave" className="form-control"
-                  placeholder="Contraseña" required onChange={e => setPassword(e.target.value)} autoComplete="off"/>
+                  placeholder="Contraseña" required onChange={e => setPassword(e.target.value)} autoComplete="off" />
               </div>
               <div className="text-center mb-3">
                 <button type='submit' className="btn btn-primary btn-block">Iniciar Sesión</button>

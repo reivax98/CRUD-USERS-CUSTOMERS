@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Customers from './Customers';
-import Login from './Login';
+import Customers from './components/Customers';
+import Login from './components/Login';
 import useToken from './useToken';
-import Header from './Header';
-import Footer from './Footer';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   const { token, setToken } = useToken();

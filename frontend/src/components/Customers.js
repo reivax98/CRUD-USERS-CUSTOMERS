@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
+import useToken from '../useToken';
 
 function Customers() {
-
+  const { token } = useToken();
   const [clientes, setClientes] = useState([]);
   const [nuevo, setNuevo] = useState({});
   const [borrar, setBorrar] = useState('');
@@ -13,14 +14,14 @@ function Customers() {
     const url = 'http://localhost:3030/customers';
     fetch(url, {
       method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem('token')) }
+      headers: { 'Authorization': 'Bearer ' + token }
     })
       .then(res => res.json())
       .then(data => {
         setClientes(data.data)
       })
       .catch(error => console.error(error))
-  }, [clientes])
+  }, [clientes, token])
 
   const getCustomer = (cli) => {
     setCrud(true)
@@ -60,7 +61,7 @@ function Customers() {
     fetch(url, {
       method: id ? 'PUT' : 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem('token'))
       },
