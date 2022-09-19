@@ -56,14 +56,13 @@ function Customers() {
   }
 
   const postPutEvent = (id) => {
-    setAdd(true)
     const url = id ? `http://localhost:3030/customers/${id}` : "http://localhost:3030/customers";
     fetch(url, {
       method: id ? 'PUT' : 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
-        'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem('token'))
+        'Authorization': 'Bearer ' + token
       },
       body: JSON.stringify(nuevo)
     })
@@ -78,7 +77,7 @@ function Customers() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem('token'))
+        'Authorization': 'Bearer ' + token
       }
     })
       .then(res => { console.log('response', res) })
@@ -129,7 +128,7 @@ function Customers() {
                     (<button type="submit" className="btn btn-primary" onClick={() => postPutEvent('')}>
                       <i className="fas fa-plus"></i> Agregar cliente
                     </button>)
-                    : (<button type="submit" className="btn btn-primary" onClick={() => postPutEvent(idEdit)}>
+                    : (<button type="submit" className="btn btn-primary" onClick={() => postPutEvent(idEdit) && setAdd(false)}>
                       <i className="fas fa-file-pen"></i> Editar cliente
                     </button>)}
                 </form>
@@ -146,7 +145,7 @@ function Customers() {
               </div>
             </div>
             <div className="card-body table-responsive p-0">
-              <table className="table table-bordered text-center">
+              <table className="table table-bordered text-center mb-0">
                 <thead>
                   <tr>
                     <th>Id</th>
@@ -178,17 +177,6 @@ function Customers() {
                     )
                   })}
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Correo</th>
-                    <th>Telefono</th>
-                    <th>Dirección</th>
-                    <th>Acciones</th>
-                  </tr>
-                </tfoot>
               </table>
             </div>
           </div>
